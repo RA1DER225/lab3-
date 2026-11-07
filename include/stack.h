@@ -1,19 +1,36 @@
 #pragma once
 #include<iostream>
+#include<vector>
+
+using namespace std;
+
 template<typename T>
 class Stack {
 	int top;
-	size_t memsize;
-	T* pMem;
+	std::vector<T>vec;
 public:
-	Stack(size_t _memsize = 1) :top(-1), memsize(_memsize), pMem(new T[]memsize) {}
-	~Stack() {
-		delete[] pMem;
+	Stack() :top(-1) {};
+	size_t size() const {
+		return top + 1;
 	}
-	bool IsEmpty();
-	bool IsFull();
-	void Push(const T& val);
-	void Pop();
-	T Top();
-
+	bool IsEmpty() const
+	{
+		return top == -1;
+	}
+	void Push(const T& val)
+	{
+		vec.push_back(val);
+		top++;
+	}
+	void Pop() {
+		if (!IsEmpty())
+		{
+			vec.pop_back();
+			top--;
+		}
+	}
+	T Top() {
+		T tmp = vec[top];
+		return tmp;
+	}
 };
